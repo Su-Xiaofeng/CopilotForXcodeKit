@@ -6,12 +6,16 @@ public struct CodeSuggestion: Codable, Equatable {
         id: String,
         text: String,
         position: CursorPosition,
-        range: CursorRange
+        range: CursorRange,
+        cursorOffset: Int? = nil,
+        displayOffset: Int? = nil
     ) {
         self.text = text
         self.position = position
         self.id = id
         self.range = range
+        self.cursorOffset = cursorOffset
+        self.displayOffset = displayOffset
     }
 
     /// An id.
@@ -64,5 +68,23 @@ public struct CodeSuggestion: Codable, Equatable {
     /// ```
     /// the `range` should be `{0, 6} - {0, 6}`.
     public var range: CursorRange
+    /// The offset position of the cursor in the suggestion.
+    ///
+    /// For example,
+    /// for original code:
+    /// ```
+    /// import SwiftUI
+    /// print(
+    ///       ^ text cursor
+    /// ```
+    /// If the suggestion is:
+    /// ```
+    /// import SwiftUI
+    /// print("hello world")
+    /// ```
+    /// the `cursorOffset` should be `36`.
+    public var cursorOffset: Int?
+    /// The offset position of the display text in the suggestion.
+    public var displayOffset: Int?
 }
 
